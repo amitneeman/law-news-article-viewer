@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {ScaleLoader} from 'react-spinners'
-import Article from './Article';
+import Article from './Components/Article';
 class App extends Component {
 
   //  TODO: EXTRACT THE ARTICLE DATA AND SHOW IW
@@ -20,9 +20,16 @@ class App extends Component {
   getContent = () => {
     if(this.state.article === null){
       return (
-       <div style={{marginTop: "20%"}}>
+       
+       <div style={{
+        display: "flex",
+        width: "100%",
+        height: "100%",
+        justifyContent: 'center',
+        marginTop: '20px'
+       }}>
           <ScaleLoader style={{
-        }} color="#af2a1c" height="62" width="17" />
+        }} color="#af2a1c" height={62} width={17} />
        </div>
       )
     }
@@ -33,11 +40,7 @@ class App extends Component {
   render() {
     return (
       <div style={{
-        display: "flex",
-        width: "100%",
-        height: "100%",
-        direction: "rtl",
-        justifyContent: "center",
+        direction: "rtl"
       }}>
         {this.getContent()}
       </div>
