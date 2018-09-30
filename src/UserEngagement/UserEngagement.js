@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import Proxy from './Proxy';
-import { FaBed ,FaHeart} from "react-icons/fa";
-import { GoRocket } from "react-icons/go";
-import { IoMdHammer } from "react-icons/io";
 import styled from 'styled-components';
+
+const Container = styled.div
+`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 30px;
+`
 
 const ReactionsContainer = styled.div
 `
 display: flex;
 justify-content: center;
 margin-top: 25px;
-border-radius: 10px;
-background: #d3d3d32b;
-box-shadow: 0 0 2px 0px #0000005e;
 user-select: none;
+justify-content: space-around;
+width: 100%;
 `;
 
 const ReactionWrapper = styled.div
@@ -24,18 +29,33 @@ align-items: center;
 margin: 10px;
 outline: none;
 -webkit-tap-highlight-color: rgba(0,0,0,0);
-
+height: 10vh;
+justify-content: space-around;
+width: 20%;
+border: solid #c12810;
+border-radius: 50%;
+padding: 10px;
+background: #d3d3d329;
+box-shadow: 0 0 3px black;
 `;
 
 const ReactionTitle = styled.label
 `
-font-size: 10pt;
+font-size: 16pt;
 `;
 
 const ReactionCount = styled.label
 `
-color: gray;
-font-size: 9pt;
+color: white;
+font-size: 12pt;
+margin-top: 9px;
+background: #c12810;
+font-weight: bold;
+width: 61%;
+text-align: center;
+border-radius: 8px;
+padding: 3px;
+border: solid beige;
 
 `;
   
@@ -80,30 +100,25 @@ class UserEngagement extends Component {
     render() {
         const {articleId} = this.props;
         return (
-            <ReactionsContainer>
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'like')}>
-                    <FaHeart style={{fontSize: "25pt"}}/>
-                    <ReactionTitle> אהבתי </ReactionTitle>
-                    <ReactionCount>{this.getCount('like')}</ReactionCount>
+            <Container>
+                <h2>מה דעתך?</h2>
+                <ReactionsContainer>
+                <ReactionWrapper onClick={() => this.updateArticle(articleId,'interesting')}>
+                    <ReactionCount>{this.getCount('interesting')}</ReactionCount>
+                    <ReactionTitle> מעניין </ReactionTitle>
                 </ReactionWrapper >
 
                 <ReactionWrapper onClick={() => this.updateArticle(articleId,'annoying')}>
-                    <IoMdHammer style={{fontSize: "25pt"}}/>
-                    <ReactionTitle> מעצבן </ReactionTitle>
                     <ReactionCount>{this.getCount('annoying')}</ReactionCount>
+                    <ReactionTitle> מעצבן </ReactionTitle>
                 </ReactionWrapper>
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'interesting')}>
-                    <GoRocket style={{fontSize: "25pt"}}/>
-                    <ReactionTitle> מעניין </ReactionTitle>
-                    <ReactionCount>{this.getCount('interesting')}</ReactionCount>
+                <ReactionWrapper onClick={() => this.updateArticle(articleId,'sad')}>
+                    <ReactionCount>{this.getCount('sad')}</ReactionCount>
+                    <ReactionTitle> עצוב </ReactionTitle>
                 </ReactionWrapper>
 
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'boring')}>
-                    <FaBed style={{fontSize: "25pt"}}/>
-                    <ReactionTitle> משעמם </ReactionTitle>
-                    <ReactionCount>{this.getCount('boring')}</ReactionCount>
-                </ReactionWrapper>
             </ReactionsContainer>
+            </Container>
         );
     }
 }
