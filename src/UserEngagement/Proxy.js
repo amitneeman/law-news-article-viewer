@@ -9,7 +9,9 @@ const config = {
 
 export default class Proxy{
     constructor(){
-        firebase.initializeApp(config);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(config);
+        }
         this.db = firebase.firestore();
         this.db.settings({
             timestampsInSnapshots: true
@@ -43,6 +45,6 @@ export default class Proxy{
                 transaction.update(sfDocRef, { [emotion]: increased });
                 return sfDoc.data();
             });
-        })       
+        })
     }
 }
