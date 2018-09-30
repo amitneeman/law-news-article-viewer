@@ -23,6 +23,10 @@ width: 100%;
 
 const ReactionWrapper = styled.div
 `
+&:active {
+    padding: 20px;
+  }
+transition: all 0.5s;
 display: flex;
 flex-direction: column;
 align-items: center;
