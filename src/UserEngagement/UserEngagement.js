@@ -13,9 +13,10 @@ margin-top: 30px;
 
 const ReactionsContainer = styled.div
 `
+position: absolute;
 display: flex;
 justify-content: center;
-margin-top: 25px;
+margin-top: 16%;
 user-select: none;
 justify-content: space-around;
 width: 100%;
@@ -24,7 +25,7 @@ width: 100%;
 const ReactionWrapper = styled.div
 `
 &:active {
-    padding: 20px;
+    padding: 40px;
   }
 transition: all 0.5s;
 display: flex;
@@ -35,7 +36,7 @@ outline: none;
 -webkit-tap-highlight-color: rgba(0,0,0,0);
 height: 12vh;
 justify-content: space-around;
-width: 15vh;
+width: 50vh;
 border: solid #c12810;
 border-radius: 50%;
 padding: 10px;
@@ -45,7 +46,7 @@ box-shadow: 0 0 3px black;
 
 const ReactionTitle = styled.label
 `
-font-size: 16pt;
+font-size: 13pt;
 `;
 
 const ReactionCount = styled.label
@@ -62,6 +63,11 @@ padding: 3px;
 border: solid beige;
 
 `;
+
+const Header = styled.h2
+`
+margin-bottom: 13vh;
+`
   
 
 class UserEngagement extends Component {
@@ -90,33 +96,46 @@ class UserEngagement extends Component {
     }
 
     updateArticle = (id,emotion) => {
-        let newData = {
-            ...this.state.userEngagement,
-            [emotion]: (this.state.userEngagement[emotion] || 0) + 1
+        if(emotion === this.state.reacted){
+            return
         }
-
+        let newData = {
+            ...this.state.userEngagement
+        };
+        if(this.state.reacted){
+            newData[this.state.reacted] -= 1;
+            this.proxy.updateArticle(id,this.state.reacted,-1)
+        }
+        newData[emotion] = (this.state.userEngagement[emotion] || 0) + 1
         this.setState({
-            userEngagement: newData
+            userEngagement: newData,
+            reacted: emotion
         })
-        this.proxy.updateArticle(id,emotion)
+        this.proxy.updateArticle(id,emotion,1)
     }
 
     render() {
         const {articleId} = this.props;
         return (
             <Container>
-                <h2>מה דעתך?</h2>
+                <Header>מה דעתך?</Header>
                 <ReactionsContainer>
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'interesting')}>
+                <ReactionWrapper 
+                    style={this.state.reacted === "interesting" ? {boxShadow: "0 0 18px black"} : {}}
+                    onClick={() => this.updateArticle(articleId,'interesting')}>
                     <ReactionCount>{this.getCount('interesting')}</ReactionCount>
                     <ReactionTitle> מעניין </ReactionTitle>
                 </ReactionWrapper >
 
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'annoying')}>
+                <ReactionWrapper 
+                style={this.state.reacted === "annoying" ? {boxShadow: "0 0 18px black"} : {}}
+                onClick={() => this.updateArticle(articleId,'annoying')}>
                     <ReactionCount>{this.getCount('annoying')}</ReactionCount>
                     <ReactionTitle> מעצבן </ReactionTitle>
                 </ReactionWrapper>
-                <ReactionWrapper onClick={() => this.updateArticle(articleId,'sad')}>
+                <ReactionWrapper 
+                style={this.state.reacted === "sad" ? {boxShadow: "0 0 18px black"} : {}}
+                onClick={() => this.updateArticle(articleId,'sad')}>
                     <ReactionCount>{this.getCount('sad')}</ReactionCount>
                     <ReactionTitle> עצוב </ReactionTitle>
                 </ReactionWrapper>

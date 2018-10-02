@@ -33,7 +33,7 @@ export default class Proxy{
 
     }
 
-    updateArticle = (id,emotion) => {
+    updateArticle = (id,emotion,value) => {
         let sfDocRef = this.db.collection("UserEngagementArticle").doc(`${id}`);
         return this.db.runTransaction(function(transaction) {
             return transaction.get(sfDocRef).then(function(sfDoc) {
@@ -41,7 +41,8 @@ export default class Proxy{
                     throw "Document does not exist!";
                 }
                 let current = sfDoc.data()[emotion] ? sfDoc.data()[emotion] : 0;
-                let increased = current + 1;
+                let increased = current + value;
+                increased >= 0 ? increased : 0;
                 transaction.update(sfDocRef, { [emotion]: increased });
                 return sfDoc.data();
             });
