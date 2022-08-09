@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Proxy from '../UserEngagement/Proxy';
 import UserEngagement from '../UserEngagement/UserEngagement';
+import Author from './Author';
 
 
 const ArticleContent = styled.div`
@@ -17,12 +18,6 @@ padding: 2vh
 word-wrap: break-word;
 `;
 
-const Metadata = styled.div`
-    display: flex;
-    justify-content: flex-start;
-    width: 100%;
-    color: #8c8c8c;
-`;
 
 const FeaturedImage = styled.img`
     margin-top: 5vh;
@@ -42,13 +37,11 @@ class Article extends Component{
     render(){
         const {article} = this.props
         return (
-            <Container>
+            <Container style={this.props.isWeb ? {paddingTop: "10vh"} : {}}>
                 <Header>
                 {article.title}
                 </Header>
-                <Metadata>
-                <div>{getDate(article.modified)}</div>
-                </Metadata>
+                <Author date={getDate(article.modified)} />
                 <FeaturedImage src={article.featured_image} />
                 <ArticleContent dangerouslySetInnerHTML={{__html: article.content}} />
                 <UserEngagement articleId={article.ID}/>

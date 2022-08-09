@@ -42,7 +42,7 @@ export default class Proxy{
                 }
                 let current = sfDoc.data()[emotion] ? sfDoc.data()[emotion] : 0;
                 let increased = current + value;
-                increased >= 0 ? increased : 0;
+                increased = increased >= 0 ? increased : 0;
                 transaction.update(sfDocRef, { [emotion]: increased });
                 return sfDoc.data();
             });

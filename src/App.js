@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import {ScaleLoader} from 'react-spinners'
 import Article from './Components/Article';
+import Header from './Components/Header';
 class App extends Component {
 
   //  TODO: EXTRACT THE ARTICLE DATA AND SHOW IW
@@ -20,13 +21,12 @@ class App extends Component {
   getContent = () => {
     if(this.state.article === null){
       return (
-       
-       <div style={{
+        <div style={{
         display: "flex",
         width: "100%",
         height: "100%",
         justifyContent: 'center',
-        marginTop: '20px'
+        marginTop: '20px',
        }}>
           <ScaleLoader style={{
         }} color="#af2a1c" height={62} width={17} />
@@ -34,14 +34,24 @@ class App extends Component {
       )
     }
     return (
-      <Article article={this.state.article} />
+      <Article isWeb={this.props.isWeb} article={this.state.article} />
     )
   }
+
+  displayHeader = () => {
+    if(this.props.isWeb && !(this.state.article === null)){
+      return <Header />
+    }else{
+      return null;
+    }
+  }
+
   render() {
     return (
       <div style={{
         direction: "rtl"
       }}>
+        {this.displayHeader()}
         {this.getContent()}
       </div>
     );

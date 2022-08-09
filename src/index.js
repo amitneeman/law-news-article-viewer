@@ -20,6 +20,7 @@ const getUrlParameter = function getUrlParameter(sParam) {
 };
 
 let article = getUrlParameter("article");
+let isWeb = getUrlParameter("web") === "true" ? true : false;
 
-ReactDOM.render(<App articleId={article} />, document.getElementById('root'));
+ReactDOM.render(<App isWeb={isWeb} articleId={article} />, document.getElementById('root'));
 registerServiceWorker();

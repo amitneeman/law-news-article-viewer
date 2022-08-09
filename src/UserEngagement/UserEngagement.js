@@ -15,17 +15,18 @@ const ReactionsContainer = styled.div
 `
 position: absolute;
 display: flex;
+flex-wrap: wrap;
 justify-content: center;
 margin-top: 16%;
 user-select: none;
-justify-content: space-around;
-width: 100%;
+justify-content: center;
+width: 290px;
 `;
 
 const ReactionWrapper = styled.div
 `
 &:active {
-    padding: 40px;
+    padding: 25px;
   }
 transition: all 0.5s;
 display: flex;
@@ -34,19 +35,19 @@ align-items: center;
 margin: 10px;
 outline: none;
 -webkit-tap-highlight-color: rgba(0,0,0,0);
-height: 12vh;
+height: 60px;
 justify-content: space-around;
-width: 50vh;
-border: solid #c12810;
+width: 60px;
 border-radius: 50%;
+border: none;
 padding: 10px;
-background: #d3d3d329;
-box-shadow: 0 0 3px black;
+background: #eaeced;
+box-shadow: 0 0 3px #00000024;
 `;
 
 const ReactionTitle = styled.label
 `
-font-size: 13pt;
+font-size: 10pt;
 `;
 
 const ReactionCount = styled.label
@@ -54,19 +55,17 @@ const ReactionCount = styled.label
 color: white;
 font-size: 12pt;
 margin-top: 9px;
-background: #c12810;
+background: #00b1f6;
 font-weight: bold;
 width: 61%;
 text-align: center;
 border-radius: 8px;
 padding: 3px;
-border: solid beige;
-
 `;
 
 const Header = styled.h2
 `
-margin-bottom: 13vh;
+margin-bottom: 30vh;
 `
   
 
@@ -121,23 +120,31 @@ class UserEngagement extends Component {
                 <Header>מה דעתך?</Header>
                 <ReactionsContainer>
                 <ReactionWrapper 
-                    style={this.state.reacted === "interesting" ? {boxShadow: "0 0 18px black"} : {}}
+                    style={this.state.reacted === "interesting" ? {boxShadow: "0 0 18px #00000070"} : {}}
                     onClick={() => this.updateArticle(articleId,'interesting')}>
                     <ReactionCount>{this.getCount('interesting')}</ReactionCount>
                     <ReactionTitle> מעניין </ReactionTitle>
                 </ReactionWrapper >
 
                 <ReactionWrapper 
-                style={this.state.reacted === "annoying" ? {boxShadow: "0 0 18px black"} : {}}
+                style={this.state.reacted === "annoying" ? {boxShadow: "0 0 18px #00000070"} : {}}
                 onClick={() => this.updateArticle(articleId,'annoying')}>
                     <ReactionCount>{this.getCount('annoying')}</ReactionCount>
                     <ReactionTitle> מעצבן </ReactionTitle>
                 </ReactionWrapper>
+
                 <ReactionWrapper 
-                style={this.state.reacted === "sad" ? {boxShadow: "0 0 18px black"} : {}}
+                style={this.state.reacted === "sad" ? {boxShadow: "0 0 18px #00000070"} : {}}
                 onClick={() => this.updateArticle(articleId,'sad')}>
                     <ReactionCount>{this.getCount('sad')}</ReactionCount>
                     <ReactionTitle> עצוב </ReactionTitle>
+                </ReactionWrapper>
+
+                <ReactionWrapper 
+                style={this.state.reacted === "new" ? {boxShadow: "0 0 18px #00000070"} : {}}
+                onClick={() => this.updateArticle(articleId,'new')}>
+                    <ReactionCount>{this.getCount('new')}</ReactionCount>
+                    <ReactionTitle> חידשתם </ReactionTitle>
                 </ReactionWrapper>
 
             </ReactionsContainer>
